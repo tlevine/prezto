@@ -10,9 +10,29 @@
 # Variables
 #
 
-HISTFILE="${ZDOTDIR:-$HOME}/.zhistory/current"       # The path to the history file.
+# Shell history
+HISTFILE="${ZDOTDIR:-$HOME}/.history/zsh-current"       # The path to the history file.
 HISTSIZE=10000                   # The maximum number of events to save in the internal history.
 SAVEHIST=10000                   # The maximum number of events to save in the history file.
+
+# Other histories
+export R_HISTFILE=~/.history/R-current
+
+[[ `readlink ${ZDOTDIR:-$HOME}/.sqlite_history` = ".history/sqlite-current" ]] || (
+  cd "${ZDOTDIR:-$HOME}"
+  ln -s ".history/sqlite-current" .sqlite_history
+)
+sqlite3() {
+  # Run the command
+  command sqlite3 $*
+  # Commit the history afterwards
+  (
+    cd "${ZDOTDIR:-$HOME}"/.history
+    mv sqlite-current sqlite-"`date --rfc-3339 seconds`"
+    git add .
+    git commit sqlite -m 'sync sqlite3' > /dev/null
+  )
+}
 
 #
 # Options
@@ -41,20 +61,20 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 # Archive the history
 _archive_history() {
   # Do nothing if the file is small.
-  test `wc -l "${ZDOTDIR:-$HOME}/.zhistory/current"|cut -d\  -f1` -lt 1000 && return
+  test `wc -l "${ZDOTDIR:-$HOME}/.history/zsh-current"|cut -d\  -f1` -lt 1000 && return
 
   # Timestamp
   now="`date --rfc-3339 seconds`"
 
   # Move the file
-  mv "${ZDOTDIR:-$HOME}/.zhistory/current" "${ZDOTDIR:-$HOME}/.zhistory/$now"
+  mv "${ZDOTDIR:-$HOME}/.history/zsh-current" "${ZDOTDIR:-$HOME}/.history/zsh-$now"
 
   # Add and commit it.
   echo 'Committing your history file'
   (
-    cd "${ZDOTDIR:-$HOME}/.zhistory"
+    cd "${ZDOTDIR:-$HOME}/.history"
     git init
-    git add .
+    git add zsh-*
     git commit . -m "$now"
   )
 }
