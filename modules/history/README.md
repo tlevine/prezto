@@ -31,6 +31,11 @@ Aliases
 
   - `history-stat` lists the ten most used commands
 
+Magic
+-------
+When the history file gets large, it is moved to a timestamped file and commited
+to its own git repository. If the repository doesn't exist, it is created.
+
 Authors
 -------
 
@@ -38,6 +43,7 @@ Authors
 
   - [Robby Russell](https://github.com/robbyrussell)
   - [Sorin Ionescu](https://github.com/sorin-ionescu)
+  - [Thomas Levine](https://github.com/tlevine)
 
 [1]: http://zsh.sourceforge.net/Guide/zshguide02.html#l16
 [2]: https://github.com/sorin-ionescu/prezto/issues
