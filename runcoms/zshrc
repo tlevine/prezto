@@ -5,3 +5,6 @@ fi
 
 # Various bin directories
 export PATH="${PATH}${PATH+:}$HOME/.gem/ruby/1.9.1/bin:$HOME/bin-private:$HOME/bin-public"
+
+# Unalias l because I have my own command for it.
+unalias l
