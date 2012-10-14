@@ -50,6 +50,7 @@ _archive_history() {
   mv "${ZDOTDIR:-$HOME}/.zhistory/current" "${ZDOTDIR:-$HOME}/.zhistory/$now"
 
   # Add and commit it.
+  echo 'Committing your history file'
   (
     cd "${ZDOTDIR:-$HOME}/.zhistory"
     git init
