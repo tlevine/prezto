@@ -35,6 +35,7 @@ zstyle ':prezto:load' pmodule \
   'notmuch' \
   'archive' \
   'git' \
+  'fasd' \
   'syntax-highlighting' \
   'prompt'
 w
