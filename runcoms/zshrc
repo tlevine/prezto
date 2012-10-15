@@ -4,7 +4,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Various bin directories
-export PATH="${PATH}${PATH+:}$HOME/.gem/ruby/1.9.1/bin:$HOME/bin-private:$HOME/bin-public"
+export PATH="${PATH}${PATH+:}$HOME/.gem/ruby/1.9.1/bin:$HOME/bin-private:$HOME/bin-public:$HOME/bin"
 
 # Unalias l because I have my own command for it.
 unalias l
